@@ -10,6 +10,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.14'    // Spring Boot 플러그인
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'application'
+    id 'java'
 }
 
 group = 'matspoon'
@@ -36,11 +37,48 @@ dependencies {
     // gradle environment plugin
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
     
+    // test dependencies
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'junit', module: 'junit'   // JUnit 4 제외
+        exclude group: 'org.junit.jupiter' // junit5.8 버젼 충돌
+        exclude group: 'org.junit.platform' // junit5.8 버젼 충돌
+        exclude group: 'org.junit.vintage' // junit5.8 버젼 충돌
     }
     testImplementation 'com.ninja-squad:DbSetup:2.1.0'
     testImplementation 'org.assertj:assertj-db:1.3.0'
+    
+    // testImplementation ('org.junit.jupiter:junit-jupiter-params:5.9.3')
+    // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+
+    // // Testcontainers
+    // testImplementation ('org.testcontainers:junit-jupiter:1.19.7') {
+    //     //exclude group: 'junit', module: 'junit'   // JUnit 4 제외
+    // }
+    // testImplementation 'org.testcontainers:postgresql:1.19.7' // PostgreSQL 예시
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'   // 최신 JUnit5
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+
+    testImplementation 'org.testcontainers:junit-jupiter:1.21.3'
+    testImplementation 'org.testcontainers:postgresql:1.21.3'
+}
+
+// spring-boot-starter-test에서 junit5를 exclude해도 5.8로 잡히는 문제로 5.10 강제 고정
+    // testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    //     exclude group: 'junit', module: 'junit'   // JUnit 4 제외
+    //     exclude group: 'org.junit.jupiter' // junit5.8 버젼 충돌
+    //     exclude group: 'org.junit.platform' // junit5.8 버젼 충돌
+    //     exclude group: 'org.junit.vintage' // junit5.8 버젼 충돌
+    // }
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == 'org.junit.jupiter') {
+            details.useVersion '5.10.2'
+        }
+        if (details.requested.group == 'org.junit.platform') {
+            details.useVersion '1.10.2'
+        }
+    }
 }
 
 application {
@@ -50,6 +88,10 @@ application {
 
 bootJar {
     launchScript()
+}
+
+test {
+    useJUnitPlatform()
 }
 
 def loadEnv() {
