@@ -1,9 +1,15 @@
-실행시 실행환경에 맞는 환경변수 세팅이 필요함
-
+1. 실행시 실행환경에 맞는 환경변수 세팅이 필요함
 DB_URL
 DB_USERNAME
 DB_PASSWORD
+* 참조.1
 
+2. docker build command
+docker build -t matspooon/k8sbasic/backend-app:latest .
+
+==============================================================================
+참조.1
+==============================================================================
 아래의 방법에서 vscode의 경우
 1. gradle에서 실행시에 env 주입을 위해 .env 파일 생성
 2. vscode 자체 run/debug시 env 주입을 위해 .vscode/launch.json 파일 수정 
