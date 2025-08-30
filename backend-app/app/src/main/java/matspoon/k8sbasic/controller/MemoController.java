@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import matspoon.k8sbasic.entity.Memo;
 import matspoon.k8sbasic.repository.MemoRepository;
 
-
 @RestController
 @RequestMapping("/memo")
 public class MemoController {
@@ -31,13 +30,13 @@ public class MemoController {
     }
 
     // READ(전체조회)
-     @GetMapping
+    @GetMapping("/findAll")
     public List<Memo> getAll() {
         return memoRepository.findAll();
     }
 
     // READ(단건조회)
-     @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Memo getById(Long id) {
         return memoRepository.findById(id).orElse(null);
     }
@@ -47,12 +46,12 @@ public class MemoController {
     public Memo update(@PathVariable Long id, @RequestBody Memo memoDetails) {
         // Memo memo = memoRepository.findById(id).orElse(null);
         // if (memo != null) {
-        //     memo.setTitle(memoDetails.getTitle());
-        //     memo.setMemo(memoDetails.getMemo());
-        //     return memoRepository.save(memo);
+        // memo.setTitle(memoDetails.getTitle());
+        // memo.setMemo(memoDetails.getMemo());
+        // return memoRepository.save(memo);
         // }
         // return null;
-                return memoRepository.findById(id).map(memo -> {
+        return memoRepository.findById(id).map(memo -> {
             memo.setMemo(memoDetails.getMemo());
             memo.setTitle(memoDetails.getTitle());
             return memoRepository.save(memo);
