@@ -1,0 +1,17 @@
+{
+    "configurations": [
+    {
+        "type": "java",
+        "name": "Run/Debug Spring Boot Application",
+        "request": "launch",
+        "mainClass": "matspoon.k8sbasic.App",
+        "projectName": "k8s-basic",
+        "env" : {
+            "DB_URL": "jdbc:postgresql://localhost:30032/k8sdb",
+            "DB_USERNAME":  "postgres",
+            "DB_PASSWORD": "postgres",
+        }
+    }
+
+    ]
+}
