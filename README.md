@@ -2,12 +2,11 @@
 
 
 ## 전체 구성
-Gitea → Git 서버 (manifest Repo)
-Jenkins → CI (빌드, 테스트, 이미지 생성, manifest-repo 업데이트)
-ArgoCD → CD (manifest-repo 변경 감지 → 배포 자동화)
-Istion Gateway → 서비스 분기
+1. Gitea → Git 서버 (manifest Repo)
+2. Jenkins → CI (빌드, 테스트, 이미지 생성, manifest-repo 업데이트)
+3. ArgoCD → CD (manifest-repo 변경 감지 → 배포 자동화)
+4. Istion Gateway → 서비스 분기
 
 ## Gitea
-코드 Repo : Github 사용
-manifest Repo : 신규 빌드가 구성되면 빌드 넘버를 업데이트하여 ArgoCD가 배포를 실행하도록 함
-
+* 코드 Repo : Github 사용
+* manifest Repo : 신규 빌드가 구성되면 빌드 넘버를 업데이트하여 ArgoCD가 배포를 실행하도록 함
