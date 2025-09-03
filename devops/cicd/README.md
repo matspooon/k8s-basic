@@ -28,6 +28,7 @@ kubectl exec -it -n istio-system istiod-867796dbf9-56d2x -- curl http://gitea-ht
 kubectl exec -it -n istio-system istiod-867796dbf9-56d2x -- nslookup gitea-http.gitea.svc.cluster.local
 
 kubectl exec -it -n istio-system istiod-867796dbf9-56d2x -- curl http://jenkins.dev-tools.svc.cluster.local:8080
+kubectl exec -it -n istio-system istiod-867796dbf9-56d2x -- curl -L http://argocd-server.argocd.svc.cluster.local
 </pre>
 # port-forward : 대상 시스템의 서비스가 정상인지 체크
 kubectl port-forward -n dev-tools svc/gitea-http 3000:3000

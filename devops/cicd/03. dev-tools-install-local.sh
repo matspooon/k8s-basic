@@ -13,7 +13,17 @@ helm install gitea gitea-charts/gitea \
 helm repo add jenkins https://charts.jenkins.io
 helm repo update
 helm upgrade --install jenkins jenkins/jenkins \
---namespace ${JENKINS_NS} \
---set controller.admin.username=${JENKINS_ADMIN_USER} \
---set controller.admin.password=${JENKINS_ADMIN_PASS} \
+--namespace dev-tools \
+--set controller.admin.username=admin \
+--set controller.admin.password=admin \
 --set controller.serviceType=ClusterIP \
+
+
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install argocd argo/argo-cd -n argocd --create-namespace -f argocd-dev-values.yaml
+# values update 후 helm 을 통해 반영
+# helm upgrade argocd argo/argo-cd -n argocd -f argocd-dev-values.yaml
+# admin 비번확인
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+# 패스워드를 간단하게 변경하려면 argocd-server instance에 직접 명령어 수행(admin ui는 8자 길이제한이 있음)

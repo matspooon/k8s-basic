@@ -53,7 +53,6 @@ spec:
   gateways:
   - msa-gateway
   http:
-  http:
   - match:
     - uri:
         prefix: /      # "/" 이하 모든 요청 매칭
