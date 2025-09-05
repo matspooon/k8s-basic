@@ -52,6 +52,11 @@ gitea:
     security:
       # 비번 최소길이 제한을 1자로 낮춤
       MIN_PASSWORD_LENGTH: 1
+    # container registry package enable
+    packages:
+      ENABLED: true
+    packages.container:
+      ENABLED: true
 
 # 컨테이너 권한 문제 회피
 securityContext:

@@ -8,6 +8,10 @@ helm install gitea gitea-charts/gitea \
   --namespace dev-tools \
   --create-namespace \
   -f gitea-dev-local.yaml
+# helm chart upgrade
+helm upgrade gitea gitea-charts/gitea \
+  -n dev-tools \
+  -f gitea-dev-local.yaml
 
 # jenkins 설치
 helm repo add jenkins https://charts.jenkins.io
